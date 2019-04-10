@@ -1,0 +1,133 @@
+
+<html>
+
+<head>
+
+	<!-- Har funnet ett problem: Den klarer ikke lese av ett statisk bilde dersom livestream kjører, 
+		og hvis man bruke Quagga.stop() uten at livestreamen kjører på onChange eventet så klarer den heller ikke å lese av ett statisk bilde.
+		Må legge til en if test som sjekker om livestream kjører dersom bruker valger å laste opp bilde.
+	-->
+		
+	<title>Barcode</title>
+	
+	<!-- link til quagga mappen -->
+	<script type='text/javascript' src='qg/dist/quagga.min.js'></script>
+	
+	<!-- JQuery link -->
+	<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
+</head>
+
+<body>
+	<button id="liveStreamBtn" onClick="liveStream()">Live stream</button>
+	
+	<!-- elementet med id interactive er der livestreamen blir vist 
+		fra nettsiden: 
+		"If you do not specify a target, QuaggaJS would look for an element that matches the CSS selector #interactive.viewport (for backwards compatibility)."-->
+	<div id="interactive" class="viewport"></div>
+	
+	<!-- Boksen hvor resultatene vises -->
+	<p id="resultBox">No results yet</p>
+	
+	<!-- inneholder input knappen som åpner enten en file browser på pc eller eventuelt ett spm om å ta bilde med kamera på mobil eller nettbrett
+		 inneholder også en img tag hvor bildet som lastes opp blir vist i -->
+	<form id="form1" runat="server">
+		<input type='file' id="imgInp" accept="image/*;capture=camera" />
+		<img id="blah" src="#" alt="your image" />
+	</form>
+
+<script type='text/javascript'>
+
+	//Blir kjørt på onChange event på input elementet med id = imgInp
+	//Det den gjør er å ta imot ett bilde i form av file, åpner bilde i en FileReader, lagrer en Base64 representasjon av bilde i en string.
+	//Det er 2 hoved grunner til at vi må gjøre det på denne måten:
+	//1: imgUpload funksjonen kan bruke enten en absolute path som source eller en Base64 representasjon av bilde som source,
+	//	 ettersom nettlesere ikke gir tilgang til absolute paths til brukeren, (av sikkerhetsgrunner) må vi åpne bilde i en file reader og få ut base64 versjonen av bilde.
+	//2: For at imgUpload funksjonen skal kunne lese Base64 representasjonen av bilde må det bli sendt videre som en String.
+	function readURL(input) {
+		if (input.files && input.files[0]) {
+			var reader = new FileReader();
+
+			reader.onload = function (e) {
+				var str = String(e.target.result);
+				imgUpload(str);
+			}
+			reader.readAsDataURL(input.files[0]);
+		}
+	}
+	
+	//legger til onChange event til input knappen, og stopper liveStream dersom denne kjører(fant ut at den ikke klarer å lese statiske bilder samtidig som livestreamen kjører)
+	$("#imgInp").change(function(){
+		readURL(this);
+	});
+
+	//starter livestream.
+	function liveStream(){
+		
+		// for beskrivelse av innholdet er det letteste og mest forklarende å bruke API'et til QuaggaJs: https://serratus.github.io/quaggaJS/
+		// initierer bruk av kamera til livestream
+		Quagga.init({
+				  inputStream : {
+					name : 'Live',
+					type : 'LiveStream',
+					target: document.querySelector('#viewport')
+				  },
+				  decoder : {
+					readers: [
+						//liste over hvilke typer skrekkoder livestream delen skal lete etter og dekode
+						'code_128_reader', 'ean_8_reader', 'ean_reader'
+					  ]
+				  }
+				}, function(err) {
+					if (err) {
+						console.log(err);
+						return
+					}
+					//initialiseringen er ferdig
+					//quagga.start er metoden som faktisk viser brukerens kamera og starter selve livestreamen
+					//Quagga.start();
+					Quagga.start();
+				});
+			
+			// Denne blir kjørt hver gang quagga prøver å lese ett bilde fra livestream, uavhengig om det klarer å lese det eller ikke.
+			Quagga.onProcessed(function(result){
+
+			});
+			
+			// Denne kjører der hvor quagga har klart å lese en strekkode fra liveStream (selv når resultatet er feil).
+			Quagga.onDetected(function(result){
+			//"after calling stop() the decoder does not process any more images."
+			Quagga.stop();
+				//legger resultatet i resultBox elementet
+				document.getElementById("resultBox").innerHTML = result.codeResult.code;
+			});
+	}
+
+	//funksjonen som dekoder ett statisk bilde
+	function imgUpload(imgSrc){
+
+		Quagga.decodeSingle({
+		decoder: {  readers: [
+			//liste med hvilke strekkode typer som skal kunne leses og dekodes
+			'code_128_reader', 'ean_8_reader', 'ean_reader'
+		]
+			},
+		locate: true, // Sier at den skal prøve å lokalisere strekkoder på bilde (er default true)
+		src: imgSrc // imgSrc er en string som inneholder en Base64 versjon av bildet. ser slik ut:"data:image/jpg;base64,DataPåBilde" hvor jpg også kan være png
+		
+		//resultat behandling:
+		}, function(result){
+			//sjekker om det faktisk er ett resultat av bilde
+			if(result.codeResult) {
+				//endrer innhold i resultBox elementet til å bli resultatet av dekodingen
+				document.getElementById("resultBox").innerHTML = result.codeResult.code;
+				
+			//kjøres hvis ikke quagga klarer å lese/finne en strekkode.
+			} else {
+				console.log("not detected");
+			}
+		});
+	}
+</script>
+
+</body>
+</html>
