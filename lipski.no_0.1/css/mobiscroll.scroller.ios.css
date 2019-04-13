@@ -1,0 +1,106 @@
+.mbsc-ios .mbsc-sc-lbl {
+    color: #ababab;
+    line-height: 2.5em;
+}
+
+.mbsc-ios .mbsc-sc-whl-gr {
+    padding: .833333em;
+}
+
+.mbsc-ios .mbsc-sc-lbl-v {
+    padding-top: 2.5em;
+}
+
+.mbsc-ios .mbsc-sc-whl-l {
+    margin: 0 -.833333em;
+    border-top: 1px solid #dbdbdb;
+    border-bottom: 1px solid #dbdbdb;
+}
+
+.mbsc-ios .mbsc-sc-whl-o {
+    background: -webkit-gradient(linear, left bottom, left top, from(#f7f7f7), color-stop(0.52, rgba(245, 245, 245, 0)), color-stop(0.48, rgba(245, 245, 245, 0)), to(#f7f7f7));
+    background: -webkit-linear-gradient(#f7f7f7, rgba(245, 245, 245, 0) 52%, rgba(245, 245, 245, 0) 48%, #f7f7f7);
+    background: linear-gradient(#f7f7f7, rgba(245, 245, 245, 0) 52%, rgba(245, 245, 245, 0) 48%, #f7f7f7);
+}
+
+.mbsc-ios .mbsc-sc-itm {
+    padding: 0 .5em;
+    color: #9d9d9d;
+    font-size: 1.833333em;
+}
+
+.mbsc-ios .mbsc-sc-itm.mbsc-btn-a {
+    background: rgba(0, 122, 255, .2);
+}
+
+.mbsc-ios .mbsc-sc-itm-sel {
+    color: #000;
+}
+
+
+/* Clickpick mode */
+
+.mbsc-ios .mbsc-sc-cp .mbsc-sc-whl .mbsc-sc-itm {
+    text-align: center;
+}
+
+.mbsc-ios .mbsc-sc-btn {
+    color: #007aff;
+    background: #f7f7f7;
+}
+
+.mbsc-ios .mbsc-sc-btn:before {
+    font-size: 2em;
+}
+
+.mbsc-ios .mbsc-sc-btn-a:before {
+    opacity: .5;
+}
+
+
+/* Multiple select */
+
+.mbsc-ios .mbsc-sc-whl-multi .mbsc-sc-whl-o {
+    display: none;
+}
+
+.mbsc-ios .mbsc-sc-whl-multi .mbsc-sc-itm {
+    padding: 0 1.818181em;
+    color: #000;
+}
+
+.mbsc-ios .mbsc-sc-whl-multi .mbsc-sc-itm-sel {
+    color: #007aff;
+}
+
+.mbsc-ios .mbsc-sc-whl-multi .mbsc-sc-itm-sel:before {
+    font-size: 1.818181em;
+}
+
+
+/* Group select */
+
+.mbsc-ios .mbsc-sc-whl .mbsc-sel-gr {
+    padding-left: .277777em;
+    color: #9d9d9d;
+    font-weight: normal;
+    font-size: 1.222222em;
+}
+
+.mbsc-ios.mbsc-sel-gr-whl .mbsc-sc-whl-multi {
+    padding-left: 1.66666em;
+}
+
+
+/* Date & Time */
+
+.mbsc-ios .mbsc-dt-whl-m .mbsc-sc-itm {
+    text-align: left;
+}
+
+.mbsc-ios .mbsc-dt-whl-d .mbsc-sc-itm,
+.mbsc-ios .mbsc-dt-whl-h .mbsc-sc-itm,
+.mbsc-ios .mbsc-dt-whl-i .mbsc-sc-itm,
+.mbsc-ios .mbsc-dt-whl-s .mbsc-sc-itm {
+    text-align: right;
+}

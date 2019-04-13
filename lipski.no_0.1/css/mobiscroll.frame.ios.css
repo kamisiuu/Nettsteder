@@ -1,0 +1,72 @@
+.mbsc-ios .mbsc-fr-overlay {
+    background: rgba(0, 0, 0, .2);
+    filter: Alpha(Opacity=20);
+}
+
+.mbsc-ios .mbsc-fr-w {
+    position: relative;
+    background: #f7f7f7;
+    color: #000;
+    padding-top: 3.333334em;
+    font-size: 12px;
+}
+
+.mbsc-ios .mbsc-fr-hdr {
+    padding: 0 .416667em;
+    color: #9d9d9d;
+    line-height: 2.5em;
+    min-height: 2.5em;
+    border-bottom: 1px solid #acacac;
+}
+
+.mbsc-ios .mbsc-fr-btn-cont {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    border-bottom: 1px solid #acacac;
+}
+
+.mbsc-ios .mbsc-fr-btn {
+    height: 2.352941em;
+    line-height: 2.352941em;
+    padding: 0 .588235em;
+    display: inline-block;
+    color: #007aff;
+    font-size: 1.416667em;
+}
+
+.mbsc-ios .mbsc-fr-btn-a {
+    opacity: .5;
+}
+
+.mbsc-ios .mbsc-fr-btn-w {
+    display: block;
+    float: right;
+}
+
+.mbsc-ios .mbsc-fr-btn-c {
+    float: left;
+}
+
+.mbsc-ios .mbsc-fr-btn-s .mbsc-fr-btn {
+    font-weight: bold;
+}
+/* Bubble arrow */
+
+.mbsc-ios .mbsc-fr-bubble-bottom .mbsc-fr-arr {
+    border-color: transparent transparent #f7f7f7 transparent;
+}
+
+.mbsc-ios .mbsc-fr-bubble-top .mbsc-fr-arr {
+    border-color: #f7f7f7 transparent transparent transparent;
+}
+
+.mbsc-ios.mbsc-fr-bubble .mbsc-fr-w {
+    border-radius: 8px;
+}
+/* Inline display */
+
+.mbsc-ios.mbsc-fr-nobtn .mbsc-fr-w {
+    padding-top: 0;
+}
