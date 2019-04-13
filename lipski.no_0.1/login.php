@@ -1,7 +1,7 @@
 <?php
 $servername = "localhost";
 $username = "root";
-$password = "LuPa4(!195";
+$password = "password";
 $dbname = "arbeidstimer";
 
 // Create connection
